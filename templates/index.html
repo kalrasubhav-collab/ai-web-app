@@ -9,6 +9,15 @@
 <body>
     <div class="container">
         <h1>AI Chat</h1>
+        <div id="role-selector">
+            <label for="role-select">Role:</label>
+            <select id="role-select">
+                <option value="general" selected>General Assistant</option>
+                <option value="coding">Coding Assistant</option>
+                <option value="writing">Writing Coach</option>
+                <option value="socratic">Socratic Teacher</option>
+            </select>
+        </div>
         <div id="chat-box"></div>
         <form id="chat-form">
             <textarea id="user-input" placeholder="Type your message..." rows="3" required></textarea>
@@ -21,6 +30,7 @@
         const input = document.getElementById("user-input");
         const chatBox = document.getElementById("chat-box");
         const sendBtn = document.getElementById("send-btn");
+        const roleSelect = document.getElementById("role-select");
 
         function addMessage(text, role) {
             const div = document.createElement("div");
@@ -44,7 +54,7 @@
                 const res = await fetch("/chat", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message }),
+                    body: JSON.stringify({ message, role: roleSelect.value }),
                 });
                 const data = await res.json();
                 if (data.error) {
