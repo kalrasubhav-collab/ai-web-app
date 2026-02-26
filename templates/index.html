@@ -70,6 +70,22 @@
             }
         });
 
+        const roleLabels = {
+            general: "General Assistant",
+            coding: "Coding Assistant",
+            writing: "Writing Coach",
+            socratic: "Socratic Teacher",
+        };
+
+        roleSelect.addEventListener("change", () => {
+            chatBox.innerHTML = "";
+            const label = roleLabels[roleSelect.value];
+            const notice = document.createElement("div");
+            notice.className = "message system";
+            notice.textContent = "Switched to " + label + " — starting fresh conversation";
+            chatBox.appendChild(notice);
+        });
+
         input.addEventListener("keydown", (e) => {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
